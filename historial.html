@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces&display=swap" rel="stylesheet">
+    <link href="index2.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <table>
+            <caption>Registro de operaciones</caption>
+            <thead>
+                <tr>
+                    <th>Primer valor</th>
+                    <th>Segundo valor</th>
+                    <th>Tipo de operación</th>
+                    <th>Resultado</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+        <button class="back-button" onclick="goBack()">Volver</button>
+        <button id="restablecer">Restablecer LocalStorage</button>
+
+    </div>
+    <script>
+        const tbody = document.getElementById("tbody");
+        const restablecer = document.getElementById("restablecer");
+        let operaciones = JSON.parse(localStorage.getItem("Operacion")) || [];
+
+        operaciones.forEach(element => {
+            var operacion = `
+                <tr>
+                    <td>${element.PrimerValor}</td>
+                    <td>${element.segundoValor}</td>
+                    <td>${element.TipoDeOperacion}</td>
+                    <td>${element.Resultado}</td>
+                </tr>`;
+            tbody.innerHTML += operacion; 
+            console.log(operacion);
+        });
+
+        restablecer.addEventListener('click', () => {
+            localStorage.clear();
+            tbody.innerHTML = ``;
+        })
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
